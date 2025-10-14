@@ -35,21 +35,45 @@ For networking, the VMs use the **Shared Network** option in UTM. After configur
 
 ---
 
-## Next Steps
+## SSH and Ansible Setup
 
-1. Fully **update and install Ansible** on the Controller VM  
-2. Configure **SSH access** from the Controller to all Target VMs  
-3. Create the **first Ansible playbook** to test connectivity (ping test) between Controller and Targets  
-4. Create the **first deployment playbook**, installing **Nginx** on each Target using Ansible
+- Configured **SSH key-based authentication** from the Controller to all Target VMs  
+- Verified connectivity using Ansible:  ansible all -i inventory/hosts.ini -m ping
+
+Expected output:
+
+192.168.64.12 | SUCCESS => {"changed": false, "ping": "pong"}
+192.168.64.13 | SUCCESS => {"changed": false, "ping": "pong"}
+Both Target VMs responded successfully, confirming remote control from Ansible.
 
 ---
 
-## Future Enhancements
+## Playbooks
 
-- Implement **multi-tier deployments** (e.g., web + database)  
-- Introduce **variable-based playbooks** and **templates** for dynamic configuration  
-- Add **security hardening tasks** (firewalls, user management)  
-- Integrate **version control** using GitHub for playbook management  
+The first automation playbooks were created to:
+
+Test connectivity (ping_test.yml)
+
+Deploy and start Nginx on both Target VMs (install_nginx.yml)
+
+Example playbook run:
+
+ansible-playbook -i inventory/hosts.ini playbooks/install_nginx.yml --ask-become-pass
+
+This executed successfully on both targets, demonstrating privilege escalation and automated deployment.
+
+---
+## Current Milestones
+
+✅ Built and booted 3 functional Ubuntu Server VMs
+
+✅ Fixed initial boot error (/cdrom unmount)
+
+✅ Established network connectivity across all VMs
+
+✅ Configured SSH access and verified Ansible connectivity
+
+✅ Successfully ran Ansible playbooks on multiple targets
 
 ---
 
