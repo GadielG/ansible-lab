@@ -1,0 +1,18 @@
+- name: Install and start NGINX on all target servers
+  hosts: targets
+  become: true
+  tasks:
+    - name: Ensure apt cache is updated
+      apt:
+        update_cache: yes
+
+    - name: Install NGINX
+      apt:
+        name: nginx
+        state: present
+
+    - name: Ensure NGINX running
+      service:
+        name: nginx
+        state: started
+        enabled: yes
