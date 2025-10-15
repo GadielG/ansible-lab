@@ -3,6 +3,8 @@
   become: yes
   roles: #call upon the distinct roles defined in the site.yml, running the playbooks in the roles dir/subdirs
     - role: webserver
+      vars:
+        db_host: "{{ db_host }}"
       when: "'web' in group_names"
 
     - role: database
