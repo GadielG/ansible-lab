@@ -1,24 +1,20 @@
-- name: Install and start NGINX on all target servers
-  hosts: targets
-  become: true
-  tasks:
-    - name: Ensure apt cache is updated
-      apt:
-        update_cache: yes
+- name: Ensure apt cache is updated
+  apt:
+    update_cache: yes
 
-    - name: Install NGINX
-      apt:
-        name: nginx
-        state: present
-    
-    - name: Deploy custom index.html
-      template:
-        src: index.html.j2
-        dest: /var/www/html/index.html
-        mode: '0644' #this is chmod perms, rw for owner, read only for others
+- name: Install NGINX
+  apt:
+    name: nginx
+    state: present
 
-    - name: Ensure NGINX running
-      service:
-        name: nginx
-        state: started
-        enabled: yes
+- name: Deploy custom index.html
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+    mode: '0644'
+
+- name: Ensure NGINX running
+  service:
+    name: nginx
+    state: started
+    enabled: yes
