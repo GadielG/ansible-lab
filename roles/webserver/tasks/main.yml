@@ -10,6 +10,12 @@
       apt:
         name: nginx
         state: present
+    
+    - name: Deploy custom index.html
+      template:
+        src: index.html.j2
+        dest: /var/www/html/index.html
+        mode: '0644' #this is chmod perms, rw for owner, read only for others
 
     - name: Ensure NGINX running
       service:
