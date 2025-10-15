@@ -2,5 +2,5 @@
   hosts: all
   become: yes
   roles:
-    - { role: webserver, when: "'web' in group_names" }
+    - { role: webserver, when: "'web' in group_names" } #calls upon the playbooks within the roles directories for the assigned targets in the hosts.ini
     - { role: database, when: "'db' in group_names" }
